@@ -100,15 +100,17 @@ int main(){
 
     //8
 
-    double a=2, b=4, c=6;
-    double x1, x2;
-    x1 = (-b + sqrt(abs((b*b) -(4*a*c))))/(2*a);
-    x2 = (-b - sqrt(abs((b*b) -(4*a*c))))/(2*a);
+    // double a=2, b=4, c=6;
+    // double x1, x2;
+    // x1 = (-b + sqrt(abs((b*b) -(4*a*c))))/(2*a);
+    // x2 = (-b - sqrt(abs((b*b) -(4*a*c))))/(2*a);
 
-    printf(" Roots are: %lf and %lf\n", x1, x2);
+    // printf(" Roots are: %lf and %lf\n", x1, x2);
 
 
-    return 0;
+    // return 0;
+
+    
     
 
 
