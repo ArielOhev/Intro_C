@@ -27,60 +27,94 @@ int biggestdvide(int num);
 
 void validfraction(int nume,int deno);
 
+int countnum(int num);
+
+void reversenum(int num);
+
 int main(){
     //1
-    int num=4;
-    printf("The Number is: %d\n",num);
-    printf("square is: %d\n",square(num));
-    printf("Cube is: %d\n",cube(num));
-    printf("Cube is: %d\n",power(num,4));
+    // int num=4;
+    // printf("The Number is: %d\n",num);
+    // printf("square is: %d\n",square(num));
+    // printf("Cube is: %d\n",cube(num));
+    // printf("Cube is: %d\n",power(num,4));
+
+    // //2
+    // printf("%d\n",isEven(num));
+    // printf("%d\n",isOdd(num));
+
+    // //3
+    // printf("%ld\n",Digits(6));
+
+    // //4
+    // char ch = 'a';
+    // printf("%d\n",ch);
+    // printf("%c %d\n",myToLower(ch),myToLower(ch));
+    // printf("%c %d\n",myToUpper(ch),myToUpper(ch));
+
+    // //5
+    // char a ='5';
+    // char b ='6';
+    // char c ='2';
+    // printf("%d\n",charToNum(a,b,c));
+
+    // //6
+    // int num1=21;
+    // int num2 = 10;
+    // printf("%d\n",sumOfdevides(num1,num2));
+
+    // //7
+    // printf("%d\n",countDvides(25));
+
+    // //8
+    // printf("%d\n",lowestDvide(22));
+
+    // //9
+    // printf("%d\n",biggestdvide(23));
+
+    // //10
+    // validfraction(0,21);
+
+    // //11
+    
+    //Lab-----------------------
+    //1
+    printf("%d\n",countnum(538));
+
 
     //2
-    printf("%d\n",isEven(num));
-    printf("%d\n",isOdd(num));
-
-    //3
-    printf("%ld\n",Digits(6));
-
-    //4
-    char ch = 'a';
-    printf("%d\n",ch);
-    printf("%c %d\n",myToLower(ch),myToLower(ch));
-    printf("%c %d\n",myToUpper(ch),myToUpper(ch));
-
-    //5
-    char a ='5';
-    char b ='6';
-    char c ='2';
-    printf("%d\n",charToNum(a,b,c));
-
-    //6
-    int num1=21;
-    int num2 = 10;
-    printf("%d\n",sumOfdevides(num1,num2));
-
-    //7
-    printf("%d\n",countDvides(25));
-
-    //8
-    printf("%d\n",lowestDvide(22));
-
-    //9
-    printf("%d\n",biggestdvide(23));
-
-    //10
-    validfraction(0,21);
-
-    //11
     
-
-
-    
+    reversenum(5614);
 
 
     
     return 0;
 }
+
+void reversenum(int num){
+    while (num!=0){
+        if(num%10!=0){
+            printf("%d ",num%10);
+            num/=10;
+        }
+        else{
+            num/=10;
+        }
+    }
+}
+
+
+int countnum(int num){
+    int count=0;
+    while(num!=0){
+        count++;
+        num/=10;
+    }
+    return count;
+
+}
+
+
 
 int GCD(int a,int b){
     int temp;
