@@ -9,14 +9,18 @@ int *quest3(int *arr1,int *arr2);
 void *quest4(int *arr1,int n);
 int *quest5(int *arr1,int *n);
 int quest6(int *arr,int n);
-
+int quest7(int*arr,int n);
+int quest8(int *A,int n);
+void quest9(int *arr,int n,int amount);
+int *quest10(int *a,int n);
 int main(){
 
-    int arr[5]={1,3,3,2,3};
-    int n=5;
+    int arr[6]={6,3,9,10,11,5};
+    int n=6;
 
-    printf("%d\n",quest6(arr,n));
-    // free(arr2);
+    int *arr2=quest10(arr,n);
+    printArr(arr2,n);
+    free(arr2);
     return 0;
 }
 void printArr(int *arr,int n){
@@ -130,4 +134,82 @@ int quest6(int *arr,int n){
     }
     free(a);
     return -1;
+}
+
+int quest7(int *arr,int n){
+    int *a=calloc(n+1,sizeof(int));
+    assert(a);
+    for(int i=0;i<n;i++){
+        a[arr[i]]+=arr[i];
+    }
+    int max=0,rem;
+    
+    for(int i=0;i<=n;i++){
+        if(a[i]>=max){
+            max=a[i];
+            rem=i;
+        }
+    }
+    free(a);
+    return rem;
+}
+
+int quest8(int *A,int n){
+    int *arr=(int*)calloc(n+1,sizeof(int));
+    assert(arr);
+    for(int i=0;i<n;i++){
+        arr[A[i]]++;
+    }
+    for(int i=n;i>=0;i--){
+        if(arr[i]==0){
+            free(arr);
+            return i;
+        }
+    }
+    free(arr);
+    return -1;
+}
+
+void quest9(int *arr,int n,int amount){
+    int *a=(int*)malloc(n*sizeof(int));
+    assert(a);
+
+    for(int i=0;i<n;i++){
+        if((i+amount)>=n){
+            a[(i+amount)-n]=arr[i];
+        }
+        else{
+            a[amount+i]=arr[i];
+        }
+    }
+    for(int i=0;i<n;i++){
+        arr[i]=a[i];
+    }
+
+    free(a);
+}
+
+int *quest10(int *a,int n){
+    int *arr=(int*)calloc(n,sizeof(int));
+    int *head=arr;
+    assert(arr);
+
+
+    for(int i=0;i<n;i++){
+        for(int k=i;k<n;k++){
+            if(a[k]>a[i]){
+                printArr(head,n);
+                *arr=a[k];
+                break;
+            }
+        }
+        arr++;
+    }
+    for(int i=0;i<n;i++){
+        if(head[i]==0){
+            head[i]=-1;
+        }
+    }
+
+    return head;
 }

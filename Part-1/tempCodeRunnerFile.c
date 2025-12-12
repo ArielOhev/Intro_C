@@ -1,2 +1,1 @@
-    int arr[9]={3,8,10,5,-7,7,9,-2,13};
-    quest4(arr,9);
+    printArr(arr2,n);
