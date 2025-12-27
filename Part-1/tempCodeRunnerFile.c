@@ -1,1 +1,1 @@
-    printArr(arr2,n);
+    char str1[strlen(str)+1];
