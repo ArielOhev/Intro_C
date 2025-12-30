@@ -195,7 +195,6 @@ verylong add_verylong(verylong v1,verylong v2){
 
     return v;
 }
-
 void quest10(char *S,char toRemove[]){
     int arr[256]={0};
     int len_S=strlen(S);
