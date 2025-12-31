@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/oheva/Desktop/Intro -C/Part-1",
-      "program": "c:/Users/oheva/Desktop/Intro -C/Part-1/build/Debug/outDebug",
+      "cwd": "c:/Users/oheva/Desktop/Intro -C/Connect_Four",
+      "program": "c:/Users/oheva/Desktop/Intro -C/Connect_Four/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

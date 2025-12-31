@@ -11,7 +11,7 @@
 #define RESET   "\033[0m"
 
 
-void gameLoop() {
+char gameLoop() {
     char Board[BOARD_ROWS][BOARD_COLS];
     char currentPlayer = 'X';
     int column, success;
@@ -19,7 +19,7 @@ void gameLoop() {
     initBoard(Board);
     
     while (1) {
-        system("cls"); // ניקוי מסך (בלינוקס/מק: system("clear"))
+        system("cls"); 
         printBoard(Board);
         
         // הצגת תור השחקן עם צבע מתאים
@@ -36,14 +36,15 @@ void gameLoop() {
             if (validateWin(Board) == 1) {
                 system("cls");
                 printBoard(Board);
-                printf("\n" BLUE "*************************\n");
+                printf("\n" BLUE "*************************\n" RESET);
                 if (currentPlayer == 'X')
-                    printf(" GAME OVER! " RED "RED" RESET " WINS! \n");
+                    printf(" GAME OVER! " RED "RED" RESET " WINS! \n");                
                 else
                     printf(" GAME OVER! " YELLOW "YELLOW" RESET " WINS! \n");
+                    
                 printf(BLUE "*************************\n" RESET);
-                system("pause"); // נותן למשתמש לראות את הניצחון לפני החזרה לתפריט
-                break;
+                system("pause");
+                return currentPlayer;
             }
             // בדיקת תיקו
             if (fullBoard(Board) == 1) {
@@ -51,7 +52,7 @@ void gameLoop() {
                 printBoard(Board);
                 printf("It's a Draw!\n");
                 system("pause");
-                break;
+                return 'D';
             }
             // החלפת תור
             currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
@@ -63,7 +64,44 @@ void gameLoop() {
 }
 
 int main(){
-    gameLoop();
+    welcomeMessage();
+    int choice;
+    
+    char *gameHistory=NULL;
+    int playedGames=0;
+    char winner;
+
+    while (1)
+    {
+        system("cls");
+        printMenu();
+        scanf("%d",&choice);
+
+        switch(choice){
+            case 1:
+                winner= gameLoop();
+                updateStatistics(&gameHistory,&playedGames,winner);
+                break;
+            case 2:
+                printf("Computer mode is under construction...\n");
+                // כאן בעתיד נקרא לפונקציה gameLoopVsComputer();
+                system("pause");
+                break;
+            case 3:
+                PrintStatistics(gameHistory,playedGames);
+                system("pause");
+                break;
+
+            case 4:
+                free(gameHistory);
+                printf("Goodbye!\n");
+                return 0; // יציאה מהתוכנית
+            default:
+                printf("Invalid choice, please try again.\n");
+
+        }
+    }
+    
     return 0;
 }
 

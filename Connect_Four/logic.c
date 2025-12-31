@@ -1,6 +1,6 @@
 #include "logic.h"
-
-
+#include <assert.h>
+#include <stdlib.h>
 
 
 void initBoard(char board[BOARD_ROWS][BOARD_COLS]){
@@ -64,7 +64,7 @@ int validateWin(char board[BOARD_ROWS][BOARD_COLS]){
     }
     // Option 4: אלכסון עולה
     for(int i=3;i<BOARD_ROWS;i++){
-        for(int j=0;j<BOARD_COLS-3;j++){
+        for(int j=0;j<=BOARD_COLS-3;j++){
             char Current = board[i][j];
             if(Current != ' ' &&
                board[i-1][j+1] == Current &&
@@ -91,7 +91,14 @@ int fullBoard(char board[BOARD_ROWS][BOARD_COLS]){
     return 1;
 }
 
+void updateStatistics(char **gameHistory,int *playedGames,char winner){
+    char *newHistory=realloc(*gameHistory,(*playedGames+1)*sizeof(char));
+    assert(newHistory);
+    *gameHistory=newHistory;
+    (*gameHistory)[*playedGames]=winner;
+    (*playedGames)++;
 
+}
 
 
 

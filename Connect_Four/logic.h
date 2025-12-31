@@ -6,8 +6,10 @@
 
 
 void initBoard(char board[BOARD_ROWS][BOARD_COLS]);
+void updateStatistics(char **gameHistory,int *playedGames,char winner);
 int dropPiece(char board[BOARD_ROWS][BOARD_COLS],int col,char piece);
 int validateWin(char board[BOARD_ROWS][BOARD_COLS]);
 int fullBoard(char board[BOARD_ROWS][BOARD_COLS]);
+
 
 #endif
