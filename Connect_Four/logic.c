@@ -1,4 +1,5 @@
 #include "logic.h"
+#include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 
@@ -91,14 +92,37 @@ int fullBoard(char board[BOARD_ROWS][BOARD_COLS]){
     return 1;
 }
 
-void updateStatistics(char **gameHistory,int *playedGames,char winner){
-    char *newHistory=realloc(*gameHistory,(*playedGames+1)*sizeof(char));
-    assert(newHistory);
-    *gameHistory=newHistory;
-    (*gameHistory)[*playedGames]=winner;
-    (*playedGames)++;
+int getComputerMove(char board[BOARD_ROWS][BOARD_COLS]){
+    int col=-1;
+    col=(rand()%7);
+    while (board[0][col]!=' ')
+    {
+        col=(rand()%7);
+    }
 
+    return col;
 }
+
+
+struct Player initPlayer(char color, char* prompt){
+    struct Player p;
+
+    p.color=color;
+    p.wins=0;
+    p.draws=0;
+    p.isComputer=0;
+    if (prompt != NULL) {
+        printf("%s", prompt);
+        scanf("%s", p.name);
+    } else {
+        strcpy(p.name, "Computer");
+        p.isComputer=1;
+    }
+
+    return p;
+}
+
+
 
 
 
