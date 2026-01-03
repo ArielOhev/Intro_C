@@ -29,7 +29,7 @@ void gameLoop(struct Player *p1,struct Player *p2,int level) {
         
         //האם זה מחשב ומול איזה רמה אנחנו משחקים
         if(currP->isComputer){
-            column= (level==2)?newNumber():getComputerMove(Board);
+            column= (level==2)?getBestMove(Board):getComputerMove(Board);
         }
         else column=newNumber();
 
@@ -97,9 +97,7 @@ int main(){
                     gameLoop(&p1,&pc,1);
                     break;
                 case 2:
-                    system("cls");
-                    printf(RED"Now Working right now\n" RESET);
-                    system("pause");
+                    gameLoop(&p1,&pc,2);
                     break;
                 
                 default:

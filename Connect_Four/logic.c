@@ -191,7 +191,60 @@ struct Player initPlayer(char color, char* prompt){
     return p;
 }
 
+/**
+ * Function: unDrop
+ * ----------------
+ * Removes the top-most piece from a specific column.
+ * This is a helper function used for the function "getBestMove"
+ */
+void unDrop(char board[BOARD_ROWS][BOARD_COLS],int col){
+    for (int i = 0; i < BOARD_ROWS; i++) {
+        if (board[i][col] != ' ') { 
+            board[i][col] = ' ';    
+            return;                 
+        }
+    }
+}
 
+/**
+ * Function: getBestMove
+ * ---------------------
+ * Determines the optimal move for the Computer.
+ * Uses a priority-based system:
+ * 1. Win
+ * 2. Block
+ * 3. Strategy: Build a sequence (Random).
+ */
+int getBestMove(char board[BOARD_ROWS][BOARD_COLS]){
+    printf("h");
+    //Priority 1 - Win
+    for(int i=0;i<BOARD_COLS;i++){
+        if(dropPiece(board,i,'O')){
+            if(validateWin(board)==1){
+                unDrop(board,i);
+                return i;
+
+            }
+            unDrop(board,i);
+        }
+    }
+
+    //Priority 2 - Block
+    for(int i=0;i<BOARD_COLS;i++){
+        if(dropPiece(board,i,'X')){
+            if(validateWin(board)==1){
+                unDrop(board,i);
+                return i;
+
+            }
+            unDrop(board,i);
+        }
+    }
+
+    //Priority 3 - Build something randomly
+    return getComputerMove(board);
+
+}
 
 
 

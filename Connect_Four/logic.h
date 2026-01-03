@@ -27,4 +27,7 @@ int fullBoard(char board[BOARD_ROWS][BOARD_COLS]);
 int getComputerMove(char board[BOARD_ROWS][BOARD_COLS]);
 struct Player initPlayer(char color, char* prompt);
 
+void unDrop(char board[BOARD_ROWS][BOARD_COLS],int col);
+int getBestMove(char board[BOARD_ROWS][BOARD_COLS]);
+
 #endif

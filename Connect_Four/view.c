@@ -122,8 +122,8 @@ void showPlayerStats(struct Player p1, struct Player p2,struct Player pc){
 void printWinner(struct Player p){
     printf(BLUE "*************************\n" RESET);
     if(p.isComputer)printf(" GAME OVER! " CYAN "%s" RESET " WINS! \n",p.name);
-    if(p.color=='X')printf(" GAME OVER! " RED "%s" RESET " WINS! \n",p.name);
-    if(!p.isComputer && p.color=='O')printf(" GAME OVER! " YELLOW "%s" RESET " WINS! \n",p.name);
+    else if(p.color=='X')printf(" GAME OVER! " RED "%s" RESET " WINS! \n",p.name);
+    else if(!p.isComputer && p.color=='O')printf(" GAME OVER! " YELLOW "%s" RESET " WINS! \n",p.name);
     printf(BLUE "*************************\n" RESET);
 }
 
