@@ -14,14 +14,17 @@ struct Player{
 };
 
 
-
+/*
+ * Function: initBoard
+ * ----------------------------
+ * Initializes the game board by setting all cells to empty spaces.
+ */
 void initBoard(char board[BOARD_ROWS][BOARD_COLS]);
+int newNumber();
 int dropPiece(char board[BOARD_ROWS][BOARD_COLS],int col,char piece);
 int validateWin(char board[BOARD_ROWS][BOARD_COLS]);
 int fullBoard(char board[BOARD_ROWS][BOARD_COLS]);
-
 int getComputerMove(char board[BOARD_ROWS][BOARD_COLS]);
-
 struct Player initPlayer(char color, char* prompt);
 
 #endif

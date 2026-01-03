@@ -3,7 +3,35 @@
 #include <assert.h>
 #include <stdlib.h>
 
+/*
+ * Function: newNumber
+ * ----------------------------
+ * Prompts the user to enter a column number (1-7).
+ * 
+ * returns: The valid column index (0-6).
+ */
 
+int newNumber(){
+    int num,result;
+    printf("Enter a Number:\n");
+    result=scanf("%d",&num);   
+    
+    while(getchar() != '\n');
+    while (result != 1 || num<1 || num>7)
+    {
+        printf("Enter Number again\n");
+        scanf("%d",&num);
+
+        while(getchar() != '\n');
+    }
+    return num-1;
+}
+
+/*
+ * Function: initBoard
+ * ----------------------------
+ * Initializes the game board by setting all cells to empty spaces.
+ */
 void initBoard(char board[BOARD_ROWS][BOARD_COLS]){
     for(int i=0;i<BOARD_ROWS;i++){
         for(int j=0;j<BOARD_COLS;j++){
@@ -12,6 +40,18 @@ void initBoard(char board[BOARD_ROWS][BOARD_COLS]){
     }
 }
 
+/*
+ * Function: dropPiece
+ * ----------------------------
+ * Attempts to place a player's piece in the specified column.
+ * The piece will fall to the lowest available row in that column.
+ *
+ * board: The game board.
+ * col: The column index (0-6) chosen by the player.
+ * piece: The character representing the player ('X' or 'O').
+ *
+ * returns: 1 if the move was successful, 0 if the column is full.
+ */
 int dropPiece(char board[BOARD_ROWS][BOARD_COLS],int col,char piece){
     for(int i=BOARD_ROWS-1;i>=0;i--){
         if(board[i][col]==' '){
@@ -22,6 +62,12 @@ int dropPiece(char board[BOARD_ROWS][BOARD_COLS],int col,char piece){
     return 0;
 }
 
+/*
+ * Function: validateWin
+ * ----------------------------
+ * Checks the entire board to see if there is a sequence of 4 identical pieces.
+ * returns: 1 if a winning sequence is found, 0 otherwise.
+ */
 int validateWin(char board[BOARD_ROWS][BOARD_COLS]){
     //Option 1 - בדיקה לאורך
     for(int i=0; i<BOARD_COLS; i++){
@@ -81,17 +127,33 @@ int validateWin(char board[BOARD_ROWS][BOARD_COLS]){
     return 0;
 }
 
+/*
+ * Function: fullBoard
+ * ----------------------------
+ * Checks if the game board is completely full (indicating a draw).
+ * This is usually done by checking if the top row is full.
+ * 
+ * returns: 1 if the board is full (Draw), 0 if there are still empty spots.
+ */
 int fullBoard(char board[BOARD_ROWS][BOARD_COLS]){
-    for(int i=0;i<BOARD_ROWS;i++){
-        for(int j=0;j<BOARD_COLS;j++){
-            if(board[i][j]==' '){
-                return 0;
-            }
+    for(int j=0;j<BOARD_COLS;j++){
+        if(board[0][j]==' '){
+            return 0;
         }
     }
     return 1;
 }
 
+/*
+ * Function: getComputerMove
+ * ----------------------------
+ * Calculates the best move for the computer player.
+ * Uses an algorithm based by random (Easy mode).
+ *
+ * board: The current state of the game board.
+ *
+ * returns: The column index (0-6) where the computer decides to play.
+ */
 int getComputerMove(char board[BOARD_ROWS][BOARD_COLS]){
     int col=-1;
     col=(rand()%7);
@@ -103,7 +165,13 @@ int getComputerMove(char board[BOARD_ROWS][BOARD_COLS]){
     return col;
 }
 
-
+/*
+ * Function: initPlayer
+ * ----------------------------
+ * Initializes a Player struct with a specific color and asks for the user's name.
+ *
+ * returns: A generic Player struct containing the name and color.
+ */
 struct Player initPlayer(char color, char* prompt){
     struct Player p;
 
@@ -111,6 +179,7 @@ struct Player initPlayer(char color, char* prompt){
     p.wins=0;
     p.draws=0;
     p.isComputer=0;
+    printf("\n");
     if (prompt != NULL) {
         printf("%s", prompt);
         scanf("%s", p.name);

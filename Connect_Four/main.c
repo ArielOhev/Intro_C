@@ -13,51 +13,37 @@
 #define RESET   "\033[0m"
 
 
-
-
-
-
-void gameLoop(struct Player *p1,struct Player *p2) {
+void gameLoop(struct Player *p1,struct Player *p2,int level) {
     char Board[BOARD_ROWS][BOARD_COLS];
     struct Player *currP=p1;
-
     int column, success;
-    
     initBoard(Board);
     
     while (1) {
-        system("cls"); 
+        printHeader();
         printBoard(Board);
         
         // הצגת תור השחקן עם צבע מתאים
-        if (currP->color=='X')
-            printf("Player " RED "RED" RESET "'s turn: ");
-        else
-            printf("Player " YELLOW "YELLOW" RESET "'s turn: ");
-            
-        column = (currP->isComputer) ? getComputerMove(Board):newNumber();
+        if (currP->color=='X')printf("Player " RED "RED" RESET "'s turn: ");
+        else printf("Player " YELLOW "YELLOW" RESET "'s turn: ");
+        
+        //האם זה מחשב ומול איזה רמה אנחנו משחקים
+        if(currP->isComputer){
+            column= (level==2)?newNumber():getComputerMove(Board);
+        }
+        else column=newNumber();
+
         success = dropPiece(Board, column, currP->color);
 
         if (success == 1) {
             // בדיקת ניצחון
             if (validateWin(Board) == 1) {
+
                 system("cls");
                 printBoard(Board);
-                printf("\n" BLUE "*************************\n" RESET);
-                if(currP->isComputer){
-                    printf(" GAME OVER! " CYAN "%s" RESET " WINS! \n",currP->name);
-                    currP->wins++; 
-                }
-                if (currP->color=='X'){
-                    printf(" GAME OVER! " RED "%s" RESET " WINS! \n",currP->name);
-                    currP->wins++; 
-                }               
-                if(!currP->isComputer && currP->color=='O'){
-                    printf(" GAME OVER! " YELLOW "%s" RESET " WINS! \n",currP->name);
-                    currP->wins++;
-                }
-                    
-                printf(BLUE "*************************\n" RESET);
+                printWinner(*currP);
+
+                currP->wins++;
                 system("pause");
                 return;
             }
@@ -65,6 +51,7 @@ void gameLoop(struct Player *p1,struct Player *p2) {
             if (fullBoard(Board) == 1) {
                 system("cls");
                 printBoard(Board);
+
                 printf("It's a Draw!\n");
                 system("pause");
                 p1->draws++;
@@ -82,10 +69,10 @@ void gameLoop(struct Player *p1,struct Player *p2) {
 
 int main(){
     system("cls");
-    welcomeMessage();
+    printHeader();
 
-    struct Player p1 = initPlayer('X', "Enter name for Player 1 (Red): ");
-    struct Player p2 = initPlayer('O', "Enter name for Player 2 (Yellow): ");
+    struct Player p1 = initPlayer('X', "Enter Your name: ");
+    struct Player p2;
     struct Player pc = initPlayer('O', NULL);
 
     int choice;
@@ -93,13 +80,13 @@ int main(){
 
     while (1)
     {
-        system("cls");
         printMenu();
-        scanf("%d",&choice);
 
+        scanf("%d",&choice);
         switch(choice){
             case 1:
-                gameLoop(&p1,&p2);
+                p2 = initPlayer('O', "Enter name for Player 2 (Yellow): ");
+                gameLoop(&p1,&p2,1);
                 break;
             case 2:
                 printLevelsMenu();
@@ -107,18 +94,20 @@ int main(){
                 switch (choice)
                 {
                 case 1:
-                    gameLoop(&p1,&pc);
+                    gameLoop(&p1,&pc,1);
                     break;
                 case 2:
-                    printf("Now Working right now\n");
+                    system("cls");
+                    printf(RED"Now Working right now\n" RESET);
+                    system("pause");
+                    break;
                 
                 default:
+                    printf("Invalid choice, please try again.\n");
                     break;
                 }
-                system("pause");
                 break;
             case 3:
-                system("cls");
                 showPlayerStats(p1,p2,pc);
                 system("pause");
                 break;

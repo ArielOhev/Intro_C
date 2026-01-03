@@ -1,1 +1,1 @@
-"c": "cd $dir && gcc *.c -o game.exe && .\\game.exe",
+"cd $dir && gcc *.c -o game.exe && .\\game.exe",
