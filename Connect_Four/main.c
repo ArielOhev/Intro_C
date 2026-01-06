@@ -1,17 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "logic.h"
 #include "view.h"
-
-
-// הגדרות צבעים (ANSI Escape Codes)
-#define RED     "\033[1;31m"
-#define YELLOW  "\033[1;33m"
-#define BLUE    "\033[1;34m"
-#define CYAN    "\033[1;36m"
-#define RESET   "\033[0m"
-
 
 void gameLoop(struct Player *p1,struct Player *p2,int level) {
     char Board[BOARD_ROWS][BOARD_COLS];
@@ -20,12 +8,12 @@ void gameLoop(struct Player *p1,struct Player *p2,int level) {
     initBoard(Board);
     
     while (1) {
-        printHeader();
+        system("cls");
         printBoard(Board);
-        
+                
         // הצגת תור השחקן עם צבע מתאים
-        if (currP->color=='X')printf("Player " RED "RED" RESET "'s turn: ");
-        else printf("Player " YELLOW "YELLOW" RESET "'s turn: ");
+        if (currP->color=='X')printf("Player " RED "%s" RESET "'s turn, ",currP->name);
+        else printf("Player " YELLOW "%s" RESET "'s turn, ",currP->name);
         
         //האם זה מחשב ומול איזה רמה אנחנו משחקים
         if(currP->isComputer){
@@ -80,23 +68,31 @@ int main(){
 
     while (1)
     {
+        system("cls");
         printMenu();
 
-        scanf("%d",&choice);
+        // Safe input handling: prevents infinite loop if char is entered
+        if (scanf("%d", &choice) != 1) {
+        while (getchar() != '\n'); 
+        choice = -1; 
+        }
+
         switch(choice){
+            // --- Mode: Player vs Player ---
             case 1:
                 p2 = initPlayer('O', "Enter name for Player 2 (Yellow): ");
                 gameLoop(&p1,&p2,1);
                 break;
+            // --- Mode: Player vs Computer ---
             case 2:
                 printLevelsMenu();
                 scanf("%d",&choice);
                 switch (choice)
                 {
-                case 1:
+                case 1: //Easy
                     gameLoop(&p1,&pc,1);
                     break;
-                case 2:
+                case 2: //Hard
                     gameLoop(&p1,&pc,2);
                     break;
                 
@@ -105,16 +101,20 @@ int main(){
                     break;
                 }
                 break;
+
+            // --- Show Statistics ---
             case 3:
                 showPlayerStats(p1,p2,pc);
                 system("pause");
                 break;
-
+            
+            // --- Exit Game ---
             case 4:
                 printf("Goodbye!\n");
                 return 0; 
             default:
                 printf("Invalid choice, please try again.\n");
+                system("pause");
         }
     }
     

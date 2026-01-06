@@ -1,6 +1,7 @@
 #ifndef VIEW_H
 #define VIEW_H
-#include "logic.h" 
+#include "logic.h"
+
 
 void printHeader();
 void printBoard(char board[BOARD_ROWS][BOARD_COLS]);
