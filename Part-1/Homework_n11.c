@@ -8,10 +8,12 @@ int quest5(int *arr,int n);
 int quest6(int *pos,int *neg,int *n,int *j);
 int quest7(int *arr,int n);
 int quest8(int *arr,int d,int n);
+int quest9(int *arr1,int *arr2,int n);
+int quest10(int *arr,int n,int x);
 
 int main(){
-    int arr[]={2,4,7,12,20,31,46};
-    printf("%d\n",quest8(arr,8,6));
+    int arr[]={1,6,6,6,6,7,7,8,11,14,22};
+    printf("%d\n",quest10(arr,11,6));
     return 0;
 }
 
@@ -179,9 +181,47 @@ int quest8(int *arr,int d,int n){
     return -1;
 }
 
+int quest9(int *arr1,int *arr2,int n){
+    int high=n-1;
+    int low=0;
+    int mid;
+    if(arr1[n-1]==arr2[n-1]) return arr2[n];
 
+    while (low<high)
+    {
+        mid=(low+high)/2;
+        if(arr1[mid]==arr2[mid]){
+            low=mid+1;
+        }
+        else{
+            high=mid;
+        }
+        
+    }
+    return arr2[low];
+}
 
+int quest10(int *arr,int n,int x){
+    int high=n-1;
+    int low=0;
+    int mid;
+    int count=0;
 
+    while (low<=high)
+    {
+        mid=(low+high)/2;
+        if(arr[mid]>x){
+            high=mid-1;
+        }
+        else{
+            if(arr[mid-1])
+            if(arr[mid]==x)count++;
+            low=mid+1;
+        }
+    }
+    return count;
+    
+}
 
 
 
